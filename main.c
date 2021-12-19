@@ -20,7 +20,7 @@ int main(void)
     int counter = getTxt();
     printf("Gematria Sequences: ");
     foo1(counter);
-    int wordL = strlen(word);
+    int wordL = strlen(word)+1;
     azby(wordL);
     printf("Atbash Sequences: ");
     foo2(wordL,counter);
@@ -28,13 +28,12 @@ int main(void)
     foo3(wordL,counter);
     return 0;
 }
-
 void getWord() {
     char ch [WORD];
-    fgets(ch, WORD, stdin);
+    scanf("%s",ch);
     int length = strlen(ch);
     for (int i = 0; i < length; ++i) {
-        if (ch[i] != ' ' && ch[i] != '[^\n]' && ch[i] != '[^\t]')
+        if (ch[i] != ' ' && ch[i] != '\n' && ch[i] != '\t')
             word [i] = ch[i];
         else i = length +1;
     }
@@ -51,7 +50,7 @@ void getWord() {
 int getTxt() {
     char tx [TXT];
     int counter = 0;
-    fgets(tx, TXT, stdin);
+    scanf("%[^~]s",tx);
     int length = strlen(tx);
     for (int i = 0; i<length;i++){
         if(tx[i] == '~') {
@@ -66,8 +65,6 @@ int getTxt() {
 }
 
 void foo1(int counter) {
-    // bee
-    // I'm bringing home my baby bumble bee won't my Mommy be so proud of me I'm bringing home my baby bumble bee-OUCH!! it stung me!!~
     char res [counter];
     int sum = 0;
     int flag = 0;
@@ -92,8 +89,8 @@ void foo1(int counter) {
                 }
                 first = 0;
                 for (int k = i ; k<=j;k++) {
-                        if (txt[k] == "\n")
-                            printf("\n");
+                    if (txt[k] == "\n")
+                        printf("\n");
                     printf("%c", res[k]);
                 }
                 j=counter;
@@ -116,8 +113,6 @@ void azby(int wordL) {
         atbash[i] = ch;
     }
 }
-// bee
-// I'm bringing home my baby bumble bee won't my Mommy be so proud of me I'm bringing home my baby bumble bee-OUCH!! it stung me!!~
 
 void foo2(int wordL, int counter) {
     char resf [counter-1];
@@ -180,12 +175,10 @@ void foo2(int wordL, int counter) {
                 }
                 j=counter;
             }
-            }
         }
+    }
     printf("\n");
 }
-//#aabcdefg
-// b adacefg# ,gb dacefg# ,gb, adacefg#  , gb adacefg#
 
 void foo3(int wordL,int counter) {
     char res [counter-1];
@@ -236,6 +229,3 @@ void foo3(int wordL,int counter) {
         }
     }
 }
-
-
-
