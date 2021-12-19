@@ -18,10 +18,13 @@ int main(void)
 {
     getWord();
     int counter = getTxt();
+    printf("Gematria Sequences: ");
     foo1(counter);
     int wordL = strlen(word);
     azby(wordL);
+    printf("Atbash Sequences: ");
     foo2(wordL,counter);
+    printf("Anagram Sequences: ");
     foo3(wordL,counter);
     return 0;
 }
@@ -60,7 +63,7 @@ int getTxt() {
         txt[i] = tx [i];
     }
     return counter;
- }
+}
 
 void foo1(int counter) {
     // bee
@@ -87,23 +90,24 @@ void foo1(int counter) {
                 if (first == 0) {
                     printf("~");
                 }
-                    first = 0;
-                    for (int k = i ; k<=j;k++) {
-//                        if (txt[k] == "\n")
-//                            printf("\n");
-                        printf("%c", res[k]);
-                    }
-                j=counter;
+                first = 0;
+                for (int k = i ; k<=j;k++) {
+                        if (txt[k] == "\n")
+                            printf("\n");
+                    printf("%c", res[k]);
                 }
+                j=counter;
             }
         }
     }
+    printf("\n");
+}
 
 void azby(int wordL) {
     for (int i = 0; i < wordL-1 ; ++i) {
         char ch;
         if (islower(word[i]) == 512){
-             ch = (char)(122 - (word[i] - 97));
+            ch = (char)(122 - (word[i] - 97));
         }
         else if (isupper(word[i]) == 256) {
             ch = (char)(90 - (word[i] - 65));
@@ -116,7 +120,8 @@ void azby(int wordL) {
 // I'm bringing home my baby bumble bee won't my Mommy be so proud of me I'm bringing home my baby bumble bee-OUCH!! it stung me!!~
 
 void foo2(int wordL, int counter) {
-    char res [counter-1];
+    char resf [counter-1];
+    char resl [counter-1];
     int flag = 1;
     int first = 1;
     int counterf = 0;
@@ -134,37 +139,50 @@ void foo2(int wordL, int counter) {
             flag2 =0;
             if (txt[j] == atbash[counterf]) {
                 counterf++;
-                res[j] = txt[j];
+                resf[j] = txt[j];
                 flag2 = 1;
             }
             else if (islower(txt[j]) != 512 && isupper(txt[j]) != 256){
-                res[j] = txt[j];
+                resf[j] = txt[j];
                 flag2 =1;
             }
             if (txt[j] == atbash[wordL - 2 - counterl]) {
                 counterl++;
-                res[j] = txt[j];
+                resl[j] = txt[j];
                 flag2 =1;
             }
             else if (islower(txt[j]) != 512 && isupper(txt[j]) != 256){
-                res[j] = txt[j];
+                resl[j] = txt[j];
                 flag2=1;
             }
             if(flag2 == 0) break;
-            if (counterf == wordL-1|| counterl == wordL-1){
+            if (counterf == wordL-1 && resf[i] == atbash[0]){
                 if (first == 0) {
                     printf("~");
                 }
                 first = 0;
                 for (int k = i ; k<=j;k++) {
-//                    if (txt[k] == "\n")
-//                        printf("\n");
-                    printf("%c", res[k]);
+                    if (txt[k] == "\n")
+                        printf("\n");
+                    printf("%c", resf[k]);
                 }
                 j=counter;
             }
+            else if (counterl == wordL-1 && resl[i] == atbash[wordL - 2]){
+                if (first == 0) {
+                    printf("~");
+                }
+                first = 0;
+                for (int k = i ; k<=j;k++) {
+                    if (txt[k] == "\n")
+                        printf("\n");
+                    printf("%c", resl[k]);
+                }
+                j=counter;
+            }
+            }
         }
-    }
+    printf("\n");
 }
 //#aabcdefg
 // b adacefg# ,gb dacefg# ,gb, adacefg#  , gb adacefg#
@@ -174,8 +192,8 @@ void foo3(int wordL,int counter) {
     int sum = 0;
     int flag = 1;
     int flag2 = 0;
-   int first = 1;
-   char tmp[wordL];
+    int first = 1;
+    char tmp[wordL-1];
     for (int i = 0; i < counter-1 ; i++) {
         flag =1;
         flag2 =0;
@@ -183,7 +201,7 @@ void foo3(int wordL,int counter) {
         for (int l = 0; l < wordL-1; ++l) {
             tmp[l] =word[l];
         }
-        for (int j = i; j < counter-1 ; j++) {
+        for (int j = i; j < counter ; j++) {
             if (flag == 1 && islower(txt[j]) != 512 && isupper(txt[j]) != 256) {
                 break;
             }
@@ -209,8 +227,8 @@ void foo3(int wordL,int counter) {
                 }
                 first = 0;
                 for (int k = i ; k<=j;k++) {
-//                    if (txt[k] == "\n")
-//                        printf("\n");
+                    if (txt[k] == "\n")
+                        printf("\n");
                     printf("%c", res[k]);
                 }
                 j=counter;
